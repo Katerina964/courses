@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  postgres:
+    image:  postgres:alpine
+    volumes:
+      - './postgres:/postgres'
+    environment:
+       POSTGRES_PASSWORD: password
+       POSTGRES_USER: newssite
+       POSTGRES_DB: newssite-database
+       PGDATA: /postgres/data
+
+  django:
+    image: django
+    build:
+      context: ./django
+      dockerfile: docker/Dockerfile
+    volumes:
+      - './django:/django'
+    depends_on:
+      - postgres
+    ports:
+      - '8080:8080'
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: newssite
+      DB_PASSWORD: password
+      DB_NAME: newssite-database
