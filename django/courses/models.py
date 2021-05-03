@@ -28,6 +28,15 @@ class Student(models.Model):
     last_name = models.CharField(max_length=150)
     email = models.EmailField()
 
+    def report(self):
+        courses = CourseParticipant.objects.filter(student=self.pk)
+        number = courses.count()
+        completed_courses = courses.filter(completed="True").count()
+        return number, completed_courses
+
+    def __str__(self):
+        return self.last_name
+
 
 class CourseParticipant(models.Model):
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
