@@ -4,11 +4,20 @@ from django.db import models
 class Course(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField()
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
 
     def __str__(self):
         return self.name
+
+    def get_student(self):
+        students = CourseParticipant.objects.filter(course=self.pk)
+        number = students.count()
+        list_students = [number]
+        for each in students:
+            list_students.append(f"{each.student.first_name} {each.student.last_name}")
+
+        return list_students
 
     class Meta:
         ordering = ['start_date']
