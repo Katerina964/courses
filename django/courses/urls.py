@@ -1,18 +1,13 @@
-from django.urls import path, include
+from django.urls import path
 from courses import views
-# from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework.routers import DefaultRouter
+from rest_framework.urlpatterns import format_suffix_patterns
 
-router = DefaultRouter()
-router.register(r'courses', views.ParticipantCreateDelete)
-
-
+app_name = 'courses'
 urlpatterns = [
-    path('report/<int:pk>/', views.StudentReport.as_view()),
-    path('course/', views.CourseList.as_view()),
-    path('', include(router.urls)),
-    # path('course/participant/<int:pk>/', views.CourseParticipantDelete.as_view()),
-    # path('create/', views.CourseParticipantCreate.as_view())
+    path('report/<int:pk>/', views.StudentReport.as_view(), name='report'),
+    path('course/', views.CourseList.as_view(), name='list'),
+    path('participant/<int:pk>/', views.ParticipantDelete.as_view(), name='delete'),
+    path('create/', views.ParticipantCreate.as_view(), name='create')
     ]
 
-# urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'csv'])
