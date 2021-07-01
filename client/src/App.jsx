@@ -14,7 +14,7 @@ handleChange(event) {this.setState({value: event.target.value}); }
 handleSubmit(event) {alert('Отправленное имя: ' + this.state.value);}
 
 componentDidMount() {
-    axios.get('http://0.0.0.0:8080/course/')
+    axios.get('http://ec2-18-116-203-39.us-east-2.compute.amazonaws.com/course/')
     .then(res => {
         this.setState({
             data: res.data
@@ -43,7 +43,7 @@ render() {
               <p>Начало <b>{course.start_date}</b></p>
               <p>Окончание <b>{course.end_date}</b></p>
               <p>Количество участников <b>{course.students_count}</b></p>
-            </div>          
+            </div>
         )}
       </ul>
       </div>
