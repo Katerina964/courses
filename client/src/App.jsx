@@ -14,7 +14,7 @@ handleChange(event) {this.setState({value: event.target.value}); }
 handleSubmit(event) {alert('Отправленное имя: ' + this.state.value);}
 
 componentDidMount() {
-    axios.get('http://ec2-18-116-203-39.us-east-2.compute.amazonaws.com/course/')
+    axios.get('http://ec2-18-116-203-39.us-east-2.compute.amazonaws.com/api/course/')
     .then(res => {
         this.setState({
             data: res.data
